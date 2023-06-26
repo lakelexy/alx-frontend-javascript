@@ -1,0 +1,22 @@
+{
+  "name": "0x00-es6_basic",
+  "version": "1.0.0",
+  "description": "jest",
+  "main": "0-constants.js",
+  "dependencies": {
+    "babel-jest": "^29.5.0",
+    "eslint": "^8.43.0"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "alx-frontend-javascript"
+  },
+  "author": "",
+  "license": "ISC"
+}
