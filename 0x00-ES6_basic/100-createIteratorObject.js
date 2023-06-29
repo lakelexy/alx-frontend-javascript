@@ -1,11 +1,8 @@
 export default function createIteratorObject(report) {
-  let list = [];
-
-  for (const item in report.allEmployees) {
-    if (item.length) {
-      // Statement is wrapped in this if block as a temporary workaround for eslint
-      list = [...list, ...report.allEmployees[item]];
-    }
+  const myarray = [];
+  for (const item of Object.values(report.allEmployees)) {
+    myarray.push(...item);
   }
-  return list;
+
+  return myarray;
 }
