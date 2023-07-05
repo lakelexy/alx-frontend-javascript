@@ -1,57 +1,51 @@
-interface Student  {
-  firstName: string;
-  lastName: string;
-  age: number;
+export interface Teacher {
+  readonly firstName: string;
+  readonly lastName: string;
+  fullTimeEmployee: boolean;
+  yearsOfExperience?: number;
   location: string;
+  [index:string]: any;
 }
 
-const student1: Student = {
-  firstName: 'Oluwasegun',
-  lastName: 'Ogunniyi',
-  age: 23,
-  location: 'Nigeria'
+export interface Directors extends Teacher {
+  numberOfReports: number;
 }
 
-const student2: Student = {
-  firstName: 'Olayemi',
-  lastName: 'Obafuwa',
-  age: 27,
-  location: 'Nigeria'
+export interface printTeacherFunction {
+  (firstName: string, lastName: string): string;
 }
 
+export function printTeacher(firstName: string, lastName: string): string {
+  return `${firstName[0]}. ${lastName}`;
+}
 
+export interface IStudentClassConstructor {
+  new (firstName: string, lastName: string): IStudentClass;
+}
 
-// Create an array of students
-const studentsList: Student[] = [student1, student2];
+export interface IStudentClass {
+  workOnHomework(): string;
+  displayName(): string;
+}
 
-// Render a table with student data
-const table: HTMLElement = document.createElement("table");
+export class StudentClass implements IStudentClass {
+  private _firstName!: string;
+  private _lastName!: string;
 
-// Create table headers
-const headers = ["First Name", "Location"];
-const headerRow: HTMLElement = document.createElement("tr");
-headers.forEach((header) => {
-  const th: HTMLElement = document.createElement("th");
-  th.textContent = header;
-  headerRow.appendChild(th);
-});
-table.appendChild(headerRow);
+  constructor(firstName: string, lastName: string) {
+    this._firstName = firstName;
+    this._lastName = lastName;
+  }
 
-// Create table rows for each student
-studentsList.forEach((student) => {
-  const row: HTMLElement = document.createElement("tr");
+  workOnHomework() {
+    return 'Currently working';
+  }
 
-  // Create table cells for student data
-  const firstNameCell: HTMLElement = document.createElement("td");
-  firstNameCell.textContent = student.firstName;
-  row.appendChild(firstNameCell);
+  displayName() {
+    return this._firstName;
+  }
+}
 
-  const locationCell: HTMLElement = document.createElement("td");
-  locationCell.textContent = student.location;
-  row.appendChild(locationCell);
-
-  table.appendChild(row);
-});
-
-// Append the table to the document body
-document.body.appendChild(table);
+export function createStudent(ctor: IStudentClassConstructor, firstName: string, lastName: string): IStudentClass {
+  return new ctor(firstName, lastName);
+}
